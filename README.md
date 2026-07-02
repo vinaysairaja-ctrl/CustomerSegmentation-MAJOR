@@ -1,49 +1,53 @@
-# Customer Segmentation Using K-Means Clustering
+# Customer Segmentation Dashboard Using K-Means Clustering
 
 ## Project Overview
 
-This project uses the K-Means Clustering algorithm to group customers based on their Annual Income and Spending Score. The aim is to identify different customer segments that can help businesses improve marketing strategies and customer engagement.
+This project uses the **K-Means Clustering** algorithm to group customers based on their **Annual Income** and **Spending Score**. It also includes an interactive **Streamlit Dashboard** for exploring the dataset, visualizing customer segments, and predicting the cluster of new customers.
+
+## Features
+
+- Interactive Streamlit Dashboard
+- Dataset Preview
+- Exploratory Data Analysis (EDA)
+- Elbow Method
+- Customer Segmentation
+- Customer Cluster Prediction
 
 ## Technologies Used
 
 - Python
+- Streamlit
 - Pandas
 - NumPy
 - Matplotlib
 - Seaborn
 - Scikit-learn
-- Google Colab
 
 ## Dataset
 
-The project uses the Mall Customers dataset containing:
-
+The project uses the **Mall Customers Dataset** with the following features:
 - Customer ID
 - Gender
 - Age
 - Annual Income (k$)
 - Spending Score (1–100)
 
-## Project Workflow
+## Workflow
 
-1. Import Libraries
-2. Load Dataset
-3. Data Exploration
-4. Data Cleaning
-5. Exploratory Data Analysis (EDA)
-6. Feature Selection
-7. Elbow Method
-8. K-Means Clustering
-9. Customer Segmentation
-10. Business Insights
-11. Conclusion
+1. Load Dataset
+2. Data Cleaning & EDA
+3. Elbow Method
+4. K-Means Clustering
+5. Customer Segmentation
+6. Streamlit Dashboard
+7. Customer Prediction
 
 ## Results
 
-The K-Means algorithm successfully divided customers into five groups based on their income and spending behavior. These insights can help businesses understand customer preferences and make better marketing decisions.
+The model successfully groups customers into **five different clusters**, helping businesses understand customer behavior and improve marketing strategies.
 
 ## Author
 
-**RAJA VINAY SAI**
-
-B.Tech – Computer Science and Engineering in KL Univeristy
+**VINAY SAI RAJA**  
+B.Tech – Computer Science and Engineering  
+KL University
