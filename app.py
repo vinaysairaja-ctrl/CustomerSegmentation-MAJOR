@@ -23,18 +23,27 @@ st.set_page_config(
     page_icon="📊",
     layout="wide"
 )
+# ------------------------------------------
+# Store Dataset
+# ------------------------------------------
+
+if "df" not in st.session_state:
+    st.session_state.df = pd.read_csv("Mall_Customers.csv")
+
+df = st.session_state.df
 
 # ------------------------------------------
 # Load Dataset
 # ------------------------------------------
 
-df = pd.read_csv("Mall_Customers.csv")
-
 # ------------------------------------------
-# Sidebar
+# Upload Dataset
 # ------------------------------------------
 
 st.sidebar.title("📊 Dashboard Menu")
+
+st.sidebar.markdown("---")
+
 
 page = st.sidebar.radio(
     "",
@@ -50,10 +59,57 @@ page = st.sidebar.radio(
 # ==========================================
 # HOME PAGE
 # ==========================================
+# ==========================================
+# HOME PAGE
+# ==========================================
+
+# ==========================================
+# HOME PAGE
+# ==========================================
 
 if page == "Home":
 
     st.title("📊 Customer Segmentation Dashboard")
+    st.write("---")
+
+    st.header("👋 Welcome")
+
+    st.write("""
+Welcome to the Customer Segmentation Dashboard.
+
+This application helps business owners analyze customer data using
+Machine Learning (K-Means Clustering).
+
+Upload your customer dataset below to begin the analysis.
+""")
+
+    st.write("---")
+
+    # Upload Dataset
+    st.subheader("📁 Upload Customer Dataset")
+
+    uploaded_file = st.file_uploader(
+        "Upload CSV or Excel File",
+        type=["csv", "xlsx"],
+        key="home_upload"
+    )
+
+    if uploaded_file is not None:
+
+        try:
+
+            if uploaded_file.name.endswith(".csv"):
+                st.session_state.df = pd.read_csv(uploaded_file)
+            else:
+                st.session_state.df = pd.read_excel(uploaded_file)
+
+            st.success("✅ Dataset Uploaded Successfully!")
+
+        except Exception as e:
+            st.error(f"Error while reading file: {e}")
+
+    # Always use latest dataset
+    df = st.session_state.df
 
     st.write("---")
 
@@ -63,8 +119,8 @@ if page == "Home":
 This dashboard groups customers based on their Annual Income and Spending Score
 using the K-Means Clustering algorithm.
 
-The project helps businesses understand different customer groups and make better
-marketing decisions.
+It helps businesses understand customer behavior, identify customer groups,
+and make better marketing decisions.
 """)
 
     st.write("---")
@@ -72,22 +128,36 @@ marketing decisions.
     col1, col2, col3 = st.columns(3)
 
     col1.metric("👥 Total Customers", len(df))
-    col2.metric("👨 Male Customers", len(df[df["Gender"]=="Male"]))
-    col3.metric("👩 Female Customers", len(df[df["Gender"]=="Female"]))
+
+    if "Gender" in df.columns:
+        col2.metric("👨 Male Customers", len(df[df["Gender"] == "Male"]))
+        col3.metric("👩 Female Customers", len(df[df["Gender"] == "Female"]))
 
     st.write("")
 
     col1, col2, col3 = st.columns(3)
 
     col1.metric("🎯 Clusters", 5)
-    col2.metric("💰 Highest Income", df["Annual Income (k$)"].max())
-    col3.metric("⭐ Highest Spending", df["Spending Score (1-100)"].max())
+
+    if "Annual Income (k$)" in df.columns:
+        col2.metric("💰 Highest Income", df["Annual Income (k$)"].max())
+
+    if "Spending Score (1-100)" in df.columns:
+        col3.metric("⭐ Highest Spending", df["Spending Score (1-100)"].max())
 
     st.write("---")
 
     st.subheader("📄 Dataset Preview")
 
     st.dataframe(df.head(10), use_container_width=True)
+
+    st.caption(f"Rows: {df.shape[0]} | Columns: {df.shape[1]}")
+
+    st.write("---")
+
+    if st.button("🚀 Start Analysis"):
+        st.success("Dataset is ready for analysis!")
+        st.info("Use the menu on the left to open Dashboard, EDA, Segmentation, and Prediction.")
 
 # ==========================================
 # DATASET PAGE
